@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Brooke Hawley, Dillon Dayton">
 
-<title>Chocolate Ratings Visual Analysis</title>
+<title>Interactive Map - Chocolate Ratings by Company Location</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,76 +23,54 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="bta553_files/libs/clipboard/clipboard.min.js"></script>
-<script src="bta553_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="bta553_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="bta553_files/libs/quarto-html/popper.min.js"></script>
-<script src="bta553_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="bta553_files/libs/quarto-html/anchor.min.js"></script>
-<link href="bta553_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="bta553_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="bta553_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="bta553_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="bta553_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="bta553_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="Interactive-map_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Interactive-map_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="Interactive-map_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="Interactive-map_files/libs/quarto-html/popper.min.js"></script>
+<script src="Interactive-map_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Interactive-map_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Interactive-map_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Interactive-map_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Interactive-map_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Interactive-map_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Interactive-map_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="Interactive-map_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 
-<script src="bta553_files/libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="Interactive-map_files/libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 
-<link href="bta553_files/libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<link href="Interactive-map_files/libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 
-<script src="bta553_files/libs/leaflet-1.3.1/leaflet.js"></script>
+<script src="Interactive-map_files/libs/leaflet-1.3.1/leaflet.js"></script>
 
-<link href="bta553_files/libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<link href="Interactive-map_files/libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 
-<script src="bta553_files/libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="Interactive-map_files/libs/proj4-2.6.2/proj4.min.js"></script>
 
-<script src="bta553_files/libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<script src="Interactive-map_files/libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 
-<link href="bta553_files/libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<link href="Interactive-map_files/libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
 
-<script src="bta553_files/libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="Interactive-map_files/libs/leaflet-binding-2.2.2/leaflet.js"></script>
 
 
 
 </head>
 
-<body class="quarto-light">
+<body class="fullcontent quarto-light">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#part-1-defining-variables" id="toc-part-1-defining-variables" class="nav-link" data-scroll-target="#part-1-defining-variables">Part 1: Defining Variables</a></li>
-  <li><a href="#part-2a-one-categorical-variable" id="toc-part-2a-one-categorical-variable" class="nav-link" data-scroll-target="#part-2a-one-categorical-variable">Part 2A: One Categorical Variable</a></li>
-  <li><a href="#part-2b-two-categorical-variables" id="toc-part-2b-two-categorical-variables" class="nav-link" data-scroll-target="#part-2b-two-categorical-variables">Part 2B: Two Categorical Variables</a></li>
-  <li><a href="#part-2c-one-continuous-variable-chocolate-ratings" id="toc-part-2c-one-continuous-variable-chocolate-ratings" class="nav-link" data-scroll-target="#part-2c-one-continuous-variable-chocolate-ratings">Part 2C: One Continuous Variable – Chocolate Ratings</a></li>
-  <li><a href="#part-2d-relationship-of-continuous-variables" id="toc-part-2d-relationship-of-continuous-variables" class="nav-link" data-scroll-target="#part-2d-relationship-of-continuous-variables">Part 2D: Relationship of Continuous Variables</a></li>
-  <li><a href="#part-2e-scatterplot-stratification" id="toc-part-2e-scatterplot-stratification" class="nav-link" data-scroll-target="#part-2e-scatterplot-stratification">Part 2E: Scatterplot Stratification</a></li>
-  <li><a href="#f-time-series-analysis" id="toc-f-time-series-analysis" class="nav-link" data-scroll-target="#f-time-series-analysis">2F: Time Series Analysis</a></li>
-  <li><a href="#g-map-chocolate-ratings-by-company-location" id="toc-g-map-chocolate-ratings-by-company-location" class="nav-link" data-scroll-target="#g-map-chocolate-ratings-by-company-location">2G: Map — Chocolate Ratings by Company Location</a></li>
-  </ul>
-</nav>
-</div>
+
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Chocolate Ratings Visual Analysis</h1>
+<h1 class="title">Interactive Map - Chocolate Ratings by Company Location</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Brooke Hawley, Dillon Dayton </p>
-          </div>
-  </div>
     
   
     
@@ -104,171 +81,12 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="introduction" class="level3">
-<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>This report explores chocolate bar ratings using the Flavors of Cacao dataset. Through a series of visualizations, we examine patterns by company, origin, cocoa content, and time. The goal is to uncover insights that can support data-driven decision-making in the chocolate industry.</p>
-</section>
-<section id="part-1-defining-variables" class="level3">
-<h3 class="anchored" data-anchor-id="part-1-defining-variables">Part 1: Defining Variables</h3>
-<section id="categorical-variables" class="level4">
-<h4 class="anchored" data-anchor-id="categorical-variables">Categorical Variables</h4>
-<ul>
-<li>company</li>
-<li>company_location</li>
-<li>country_of_bean_origin</li>
-<li>broad_bean_origin</li>
-<li>review_date (treated as discrete)</li>
-</ul>
-</section>
-<section id="continuous-variables" class="level4">
-<h4 class="anchored" data-anchor-id="continuous-variables">Continuous Variables</h4>
-<ul>
-<li>cocoa_percent (numeric)</li>
-<li>rating</li>
-</ul>
-</section>
-</section>
-<section id="part-2a-one-categorical-variable" class="level3">
-<h3 class="anchored" data-anchor-id="part-2a-one-categorical-variable">Part 2A: One Categorical Variable</h3>
-<section id="bar-chart-top-10-most-reviewed-companies" class="level4">
-<h4 class="anchored" data-anchor-id="bar-chart-top-10-most-reviewed-companies">Bar Chart: Top 10 Most Reviewed Companies</h4>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="bta553_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-731bdeb3f64c236489f1" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-731bdeb3f64c236489f1">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addCircleMarkers","args":[[null,-34.73683221207642,-25.76309564897466,47.62101036871418,50.65275805804486,-16.70401823921612,-10.65543630250108,60.47675775447046,-37.30887212313398,3.916890094367444,9.965461823059632,49.77965934922566,56.05921343439317,null,-1.454182514996781,null,-17.31561870062373,64.2614345280312,null,51.07731333168862,7.923032756053236,null,15.6955465371641,14.82531438117064,47.2033757710804,65.07986297634143,22.81923513738228,53.17168587426283,31.47779962124787,42.67073634190186,37.53574512334762,55.28291384058069,-19.3016669572833,null,23.91345265431791,52.29334984496599,-41.5516288831415,null,12.84622480455622,-9.146796922386606,11.71883328090344,52.13396311311811,39.60704869067599,18.23778027813723,66.06783529215805,null,null,null,-28.92324391455966,36.4182316488858,40.32048996456253,null,4.119393635011149,62.4183409262572,46.79305119919603,53.80829907170347,44.75598143906685,7.16059777351477,16.55531953309147,null],[null,-64.75442002554357,134.3142864406573,14.06112359811223,4.586922442830073,-64.65466773446022,-53.17255950008593,-96.39551273638527,-71.17793220417315,-73.07341489879389,-84.17310537551337,15.34324363694739,9.885528504210519,null,-78.38356921452997,null,178.5684226540865,26.14195115367546,null,10.27043977262635,-1.237166506257131,null,-90.37200105007504,-86.59252539355667,19.34273311015054,-18.76554068894185,79.54023670739215,-8.016862873001589,35.00028499997248,12.26869715884418,137.7114031093551,23.88861040064652,46.72940879636274,null,-102.223481876331,5.50055979893482,172.9507898508941,null,-85.02172644272244,-74.43044721946768,122.9381677741524,19.34353874584095,-8.061202614090933,-66.47925263088365,95.78508965469905,null,null,null,25.15786218741048,127.8197804991421,-3.624326292645768,null,-55.91154466795214,16.10893574587083,8.115739347615555,-2.759268641179607,-103.572896781388,-66.15277665298633,106.3329535774743,null],6,null,null,{"interactive":true,"className":"","stroke":true,"color":"black","weight":5,"opacity":0.5,"fill":true,"fillColor":"darkorange","fillOpacity":0.8},null,null,null,null,["Amsterdam: Avg Rating 3.5","Argentina: Avg Rating 3.31","Australia: Avg Rating 3.36","Austria: Avg Rating 3.24","Belgium: Avg Rating 3.09","Bolivia: Avg Rating 3.25","Brazil: Avg Rating 3.4","Canada: Avg Rating 3.32","Chile: Avg Rating 3.75","Colombia: Avg Rating 3.17","Costa Rica: Avg Rating 3.14","Czech Republic: Avg Rating 2.75","Denmark: Avg Rating 3.28","Domincan Republic: Avg Rating 3.2","Ecuador: Avg Rating 3.01","Eucador: Avg Rating 3","Fiji: Avg Rating 3.25","Finland: Avg Rating 3.25","France: Avg Rating 3.25","Germany: Avg Rating 3.18","Ghana: Avg Rating 2.75","Grenada: Avg Rating 2.83","Guatemala: Avg Rating 3.35","Honduras: Avg Rating 3.21","Hungary: Avg Rating 3.2","Iceland: Avg Rating 3.42","India: Avg Rating 2.5","Ireland: Avg Rating 2.81","Israel: Avg Rating 3.25","Italy: Avg Rating 3.33","Japan: Avg Rating 3.09","Lithuania: Avg Rating 3.17","Madagascar: Avg Rating 3.15","Martinique: Avg Rating 2.75","Mexico: Avg Rating 2.69","Netherlands: Avg Rating 3.5","New Zealand: Avg Rating 3.19","Niacragua: Avg Rating 2.75","Nicaragua: Avg Rating 3","Peru: Avg Rating 2.9","Philippines: Avg Rating 3.5","Poland: Avg Rating 3.38","Portugal: Avg Rating 2.75","Puerto Rico: Avg Rating 2.62","Russia: Avg Rating 3.25","Sao Tome: Avg Rating 2.94","Scotland: Avg Rating 3.33","Singapore: Avg Rating 3.33","South Africa: Avg Rating 2.67","South Korea: Avg Rating 3.2","Spain: Avg Rating 3.27","St. Lucia: Avg Rating 3","Suriname: Avg Rating 3.25","Sweden: Avg Rating 3.05","Switzerland: Avg Rating 3.34","U.K.: Avg Rating 3.05","U.S.A.: Avg Rating 3.15","Venezuela: Avg Rating 3.17","Vietnam: Avg Rating 3.41","Wales: Avg Rating 2.75"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-41.5516288831415,66.06783529215805],"lng":[-103.572896781388,178.5684226540865]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-</div>
-<p><strong>Interpretation</strong> This bar chart displays the top 10 most reviewed chocolate companies in the dataset. <strong>Soma</strong> stands out as the most frequently reviewed, followed by <strong>Bonnat</strong>, <strong>Fresco</strong>, and <strong>Pralus</strong>. These companies are likely to have greater brand visibility or a strong reputation among chocolate reviewers. This visualization helps identify key players in the market and may indicate which manufacturers have the broadest consumer reach or strongest engagement with the reviewing community.</p>
-</section>
-<section id="word-cloud-company-review-frequency" class="level4">
-<h4 class="anchored" data-anchor-id="word-cloud-company-review-frequency">Word Cloud: Company Review Frequency</h4>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="bta553_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="768"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>Interpretation</strong> This word cloud illustrates which chocolate manufacturers appear most frequently in the data set. The larger the company name, the more reviews it received. For example, Soma, Pralus, and Fresco are the most prominently featured, indicating these companies are well-represented and possibly more established or popular among reviewers. This helps identify key players in the gourmet chocolate market.</p>
-</section>
-</section>
-<section id="part-2b-two-categorical-variables" class="level3">
-<h3 class="anchored" data-anchor-id="part-2b-two-categorical-variables">Part 2B: Two Categorical Variables</h3>
-<section id="bar-chart-company-location-vs-broad-bean-origin" class="level4">
-<h4 class="anchored" data-anchor-id="bar-chart-company-location-vs-broad-bean-origin">Bar Chart: Company Location vs Broad Bean Origin</h4>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="bta553_files/figure-html/two-cat-bar-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>Interpretation</strong> The bar chart shows the top 8 combinations of chocolate company locations and the origins of their cacao beans. U.S.-based companies dominate the top combinations, sourcing beans from a wide variety of regions, including the Dominican Republic, Peru, Venezuela, Ecuador, and Madagascar. Ecuador also appears as both a company location and a bean origin, highlighting its dual role in production and sourcing. This suggests that U.S. companies are major contributors to the diversity of cacao sourcing in the market.</p>
-</section>
-</section>
-<section id="part-2c-one-continuous-variable-chocolate-ratings" class="level3">
-<h3 class="anchored" data-anchor-id="part-2c-one-continuous-variable-chocolate-ratings">Part 2C: One Continuous Variable – Chocolate Ratings</h3>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="bta553_files/figure-html/one-continuous-rating-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>Interpretation</strong> The histogram shows that the majority of chocolate bar ratings fall between 2.75 and 3.75, with a clear peak near 3.5. This suggests that most chocolates are rated moderately well, with few low-rated or exceptionally high-rated products. Ratings below 2 and above 4 are rare, indicating that reviewers tend to stay within a relatively narrow range when evaluating products.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="bta553_files/figure-html/one-continuous-rating-boxplot-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>Interpretation</strong> The boxplot of chocolate ratings confirms that most ratings fall within a tight interquartile range (approximately 3.0 to 3.6), indicating consistent mid-to-high quality evaluations. The median rating is slightly above 3.25. A few outliers are present at both the low (around 1.0 to 2.0) and high (5.0) ends, suggesting rare extreme opinions—either strongly negative or unusually positive reviews.</p>
-</section>
-<section id="part-2d-relationship-of-continuous-variables" class="level3">
-<h3 class="anchored" data-anchor-id="part-2d-relationship-of-continuous-variables">Part 2D: Relationship of Continuous Variables</h3>
-<section id="scatterplot-cocoa-percent-vs.-rating" class="level4">
-<h4 class="anchored" data-anchor-id="scatterplot-cocoa-percent-vs.-rating">Scatterplot: Cocoa Percent vs.&nbsp;Rating</h4>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="bta553_files/figure-html/cocoa-vs-rating-scatter-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>Interpretation</strong> The scatterplot shows a <strong>slight negative relationship</strong> between cocoa percent and rating, indicating that as cocoa percentage increases, the average rating may slightly decrease. However, the trend is weak and dispersed, suggesting that cocoa content alone is not a strong predictor of rating.</p>
-</section>
-</section>
-<section id="part-2e-scatterplot-stratification" class="level3">
-<h3 class="anchored" data-anchor-id="part-2e-scatterplot-stratification">Part 2E: Scatterplot Stratification</h3>
-<section id="faceted-scatterplot-cocoa-percent-vs-rating-by-bean-origin" class="level4">
-<h4 class="anchored" data-anchor-id="faceted-scatterplot-cocoa-percent-vs-rating-by-bean-origin">Faceted Scatterplot: Cocoa Percent vs Rating by Bean Origin</h4>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="bta553_files/figure-html/cocoa-rating-facets-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>Interpretation</strong> This faceted scatterplot explores the relationship between cocoa content and chocolate rating across the nine most common bean origins. Most origins show a slight <strong>negative trend</strong>, where higher cocoa percentages are <strong>not necessarily associated with higher ratings</strong>—contrary to expectations. For example, Ecuador and Venezuela both show declining ratings with increasing cocoa percent. This suggests that factors beyond cocoa content—such as flavor balance or processing techniques—may have a stronger influence on reviewer scores.</p>
-</section>
-</section>
-<section id="f-time-series-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="f-time-series-analysis">2F: Time Series Analysis</h3>
-<section id="average-rating-over-time" class="level4">
-<h4 class="anchored" data-anchor-id="average-rating-over-time">Average Rating Over Time</h4>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="bta553_files/figure-html/time-series-rating-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>Interpretation:</strong><br>
-The line chart shows how average chocolate ratings have changed over time. Ratings appear relatively <strong>stable</strong> across the years, with only <strong>minor fluctuations</strong>. This suggests a fairly consistent standard in chocolate quality or reviewer expectations throughout the data set’s time span. Any visible dips or peaks may indicate changing reviewer trends or the introduction of new companies/products.</p>
-</section>
-<section id="forecast-of-average-chocoalte-ratings-2018-2028" class="level4">
-<h4 class="anchored" data-anchor-id="forecast-of-average-chocoalte-ratings-2018-2028">Forecast of Average Chocoalte Ratings (2018-2028)</h4>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="bta553_files/figure-html/forecast-correct-2018-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>Interpretation</strong> The forecast chart displays projected average chocolate ratings from 2018 to 2028, based on historical data spanning 2006 to 2017. The black line represents actual yearly averages, while the solid blue line continues the trend into the forecast period. The shaded regions around the forecast represent the model’s confidence intervals—darker blue for 80% and lighter blue for 95%.</p>
-<p>The forecast indicates a modest upward trend in average ratings, suggesting that chocolate quality or consumer perceptions may improve slightly over time. The growing width of the confidence bands reflects increasing uncertainty as the forecast extends further from the observed data. Overall, the model expects chocolate ratings to remain relatively stable, with values centered around 3.3 over the next decade.</p>
-</section>
-</section>
-<section id="g-map-chocolate-ratings-by-company-location" class="level2">
-<h2 class="anchored" data-anchor-id="g-map-chocolate-ratings-by-company-location">2G: Map — Chocolate Ratings by Company Location</h2>
-<div class="cell">
-<div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-81096b6a53fd5cff9383" style="width:100%;height:379px;"></div>
-<script type="application/json" data-for="htmlwidget-81096b6a53fd5cff9383">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addCircleMarkers","args":[[null,-34.73683221207642,-25.76309564897466,47.62101036871418,50.65275805804486,-16.70401823921612,-10.65543630250108,60.47675775447046,-37.30887212313398,3.916890094367444,9.965461823059632,49.77965934922566,56.05921343439317,null,-1.454182514996781,null,-17.31561870062373,64.2614345280312,null,51.07731333168862,7.923032756053236,null,15.6955465371641,14.82531438117064,47.2033757710804,65.07986297634143,22.81923513738228,53.17168587426283,31.47779962124787,42.67073634190186,37.53574512334762,55.28291384058069,-19.3016669572833,null,23.91345265431791,52.29334984496599,-41.5516288831415,null,12.84622480455622,-9.146796922386606,11.71883328090344,52.13396311311811,39.60704869067599,18.23778027813723,66.06783529215805,null,null,null,-28.92324391455966,36.4182316488858,40.32048996456253,null,4.119393635011149,62.4183409262572,46.79305119919603,53.80829907170347,44.75598143906685,7.16059777351477,16.55531953309147,null],[null,-64.75442002554357,134.3142864406573,14.06112359811223,4.586922442830073,-64.65466773446022,-53.17255950008593,-96.39551273638527,-71.17793220417315,-73.07341489879389,-84.17310537551337,15.34324363694739,9.885528504210519,null,-78.38356921452997,null,178.5684226540865,26.14195115367546,null,10.27043977262635,-1.237166506257131,null,-90.37200105007504,-86.59252539355667,19.34273311015054,-18.76554068894185,79.54023670739215,-8.016862873001589,35.00028499997248,12.26869715884418,137.7114031093551,23.88861040064652,46.72940879636274,null,-102.223481876331,5.50055979893482,172.9507898508941,null,-85.02172644272244,-74.43044721946768,122.9381677741524,19.34353874584095,-8.061202614090933,-66.47925263088365,95.78508965469905,null,null,null,25.15786218741048,127.8197804991421,-3.624326292645768,null,-55.91154466795214,16.10893574587083,8.115739347615555,-2.759268641179607,-103.572896781388,-66.15277665298633,106.3329535774743,null],6,null,null,{"interactive":true,"className":"","stroke":true,"color":"black","weight":5,"opacity":0.5,"fill":true,"fillColor":"darkorange","fillOpacity":0.8},null,null,null,null,["Amsterdam: Avg Rating 3.5","Argentina: Avg Rating 3.31","Australia: Avg Rating 3.36","Austria: Avg Rating 3.24","Belgium: Avg Rating 3.09","Bolivia: Avg Rating 3.25","Brazil: Avg Rating 3.4","Canada: Avg Rating 3.32","Chile: Avg Rating 3.75","Colombia: Avg Rating 3.17","Costa Rica: Avg Rating 3.14","Czech Republic: Avg Rating 2.75","Denmark: Avg Rating 3.28","Domincan Republic: Avg Rating 3.2","Ecuador: Avg Rating 3.01","Eucador: Avg Rating 3","Fiji: Avg Rating 3.25","Finland: Avg Rating 3.25","France: Avg Rating 3.25","Germany: Avg Rating 3.18","Ghana: Avg Rating 2.75","Grenada: Avg Rating 2.83","Guatemala: Avg Rating 3.35","Honduras: Avg Rating 3.21","Hungary: Avg Rating 3.2","Iceland: Avg Rating 3.42","India: Avg Rating 2.5","Ireland: Avg Rating 2.81","Israel: Avg Rating 3.25","Italy: Avg Rating 3.33","Japan: Avg Rating 3.09","Lithuania: Avg Rating 3.17","Madagascar: Avg Rating 3.15","Martinique: Avg Rating 2.75","Mexico: Avg Rating 2.69","Netherlands: Avg Rating 3.5","New Zealand: Avg Rating 3.19","Niacragua: Avg Rating 2.75","Nicaragua: Avg Rating 3","Peru: Avg Rating 2.9","Philippines: Avg Rating 3.5","Poland: Avg Rating 3.38","Portugal: Avg Rating 2.75","Puerto Rico: Avg Rating 2.62","Russia: Avg Rating 3.25","Sao Tome: Avg Rating 2.94","Scotland: Avg Rating 3.33","Singapore: Avg Rating 3.33","South Africa: Avg Rating 2.67","South Korea: Avg Rating 3.2","Spain: Avg Rating 3.27","St. Lucia: Avg Rating 3","Suriname: Avg Rating 3.25","Sweden: Avg Rating 3.05","Switzerland: Avg Rating 3.34","U.K.: Avg Rating 3.05","U.S.A.: Avg Rating 3.15","Venezuela: Avg Rating 3.17","Vietnam: Avg Rating 3.41","Wales: Avg Rating 2.75"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-41.5516288831415,66.06783529215805],"lng":[-103.572896781388,178.5684226540865]}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-<p><strong>Interpretation</strong> This map visualizes the average chocolate ratings by company location across the globe. Countries such as the United States, France, and the United Kingdom are notable for both the number of companies represented and higher average ratings. Clusters in Europe and the Americas indicate regions with a strong presence in premium chocolate production. The global spread also highlights emerging contributors from regions like South America, Asia, and Oceania. This distribution provides insight into geographic trends in chocolate quality perception and consumer preference.</p>
-</section>
 
 </main>
 <!-- /main column -->
